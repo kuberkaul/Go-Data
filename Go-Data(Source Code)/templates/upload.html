@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>GoData: Upload file</title>
+<style type="text/css">
+tr.top td { border-top: thin solid; border-color:blue; border-bottom: thin solid;}
+tr.bottom td { border-bottom: thin solid; border-color:#d3d3d3;  }
+</style>
+
+{% if prefetchFilelist %}
+{% for id in prefetchFilelist %}
+
+ <link rel="prerender" href="/file/id/download" ><!-- Firefox -->
+
+
+{% endfor %}
+
+{% endif %}
+
+</head>
+<body style="background-color: #E8E8E8; ">
+<form method="POST" action="{{post_url}}" enctype="multipart/form-data">
+<table width="1000" border = "0" cellspacing="0" align="center"  >
+
+<tr>
+	<td colspan="3" style="background-image:url(images/header.png);text-align:center;height:270px;"></td>
+</tr>
+
+<tr>
+<td style="background-color: #FFFFFF;"><p style="float: right"><a href="{{logout_url}}">Log Out</a>&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+</tr>
+
+<tr>
+<td style="background-color: #FFFFFF;"><h3>&nbsp;&nbsp;&nbsp;&nbsp;Upload a file to GoData servers</h3></td>
+</tr>
+
+<tr><td style="background-color: #FFFFFF;height:50px;">&nbsp;&nbsp;&nbsp;&nbsp;<input type="file" name="file" /></td></tr>
+<tr><td style="background-color: #FFFFFF;height:25px;">&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="Upload" /></td></tr>
+
+{% if new_file %}
+<tr><td style="background-color: #FFFFFF;height:25px;"></td></tr>
+<tr>
+<td style="background-color: #FFFFFF;"><font size="3" color="green">&nbsp;&nbsp;&nbsp;&nbsp;File Uploaded Successfully!</font>
+</td>
+</tr>
+
+<tr><td style="background-color: #FFFFFF;">
+	<table border = "0" cellspacing="0" align="center" width= "970">
+	<tbody align="center" style="font-family:verdana; font-size:14px; height:50px; color:blue; background-color:MintCream">
+	<tr class="top row">
+		<td>Filename</td>
+		<td>Size</td>
+		<td>Uploaded by</td>
+		<td>Modified</td>
+		<td>Content Type</td>
+	</tr>
+	<tbody align="center" style="font-family:verdana; font-size:14px; height:50px; ">
+	<tr class="bottom row">
+	<td>{{new_file.blobkey.filename}}</td>
+	<td>{{new_file.blobkey.size}} bytes</td>
+	<td>{{new_file.user}}</td>
+	<td>{{new_file.upload_time}}</td>
+	<td>{{new_file.blobkey.content_type}}</td>
+	</tr>
+	</table>
+	</td>
+</tr>
+{% endif %}
+
+
+{% if filelist %}
+<tr><td style="background-color: #FFFFFF;height:50px;"></td></tr>
+<tr><td style="background-color: #FFFFFF;height:50px;"><h3>&nbsp;&nbsp;&nbsp;&nbsp;Your Files</h3></td></tr>
+
+<tr><td style="background-color: #FFFFFF;">
+<table border = "0" cellspacing="0" align="center" width= "970">
+<tbody align="center" style="font-family:verdana; font-size:14px; height:50px; color:blue; background-color:MintCream">
+<tr class="top row">
+<td>Filename</td>
+<td>Size</td>
+<td>Uploaded by</td>
+<td>Modified</td>
+<td>Content Type</td>
+<td>Action</td>
+</tr>
+<tbody align="center" style="font-family:verdana; font-size:14px;  ">
+{% for file in filelist %}
+<tr class="bottom row">
+<td>{{file.blobkey.filename}}</td>
+<td>{{file.blobkey.size}} bytes</td>
+<td>{{file.user}}</td>
+<td>{{file.upload_time}}</td>
+<td>{{file.blobkey.content_type}}</td>
+<td><a href="/delete/{{file.key.id}}"> Delete </a>
+{% if file.is_image %}
+{% if mobile %}
+<p><a href="/thumbnail/{{file.key.id}}"> View Thumbnail </a></p>
+{% endif %}
+{% endif %}
+
+<p><a href="/file/{{file.key.id}}/download">View Original File</a></p></td>
+{% endfor %}
+{% endif %}
+</tr>
+</table>
+</td></tr>
+<tr><td style="background-color: #FFFFFF;height:100px;"></td></tr>
+<tr><td style="background-color: #FFFFFF;height:50px;font-size:10pt"><p style="float: right">Copyright: Anahita, Digvijay, Kuber and Payal&nbsp;&nbsp;&nbsp;&nbsp;</p></td></tr>
+</table>
+</form>
+
+</body>
+</html>
