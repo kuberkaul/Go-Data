@@ -1,0 +1,25 @@
+<html>
+<head>
+<title>GoData: Upload file</title>
+</head>
+<body>
+<p style="float: right"><a href="{{logout_url}}">Log Out</a></p>
+<h1>Upload a file to GoData servers</h1>
+<form method="POST" action="{{post_url}}" enctype="multipart/form-data">
+<input type="file" name="file" /><br />
+Folder:
+{% if filelist %}
+<select name="folder">
+{% for file in filelist %}
+<option value="{{file.folder}}">{{file.folder}}</option>
+{% endfor %}
+<option value="Create New">Create New </option>
+</select>
+{% endif %}
+<input type="submit" value="Upload" />
+</form>
+
+<a href="/list/">View My Files </a>
+<a href="/">Create a New Folder
+</body>
+</html>

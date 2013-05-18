@@ -1,0 +1,58 @@
+<html>
+<head>
+<title>File information</title>
+</head>
+<body>
+<p style="float: right"><a href="{{logout_url}}">Log Out</a></p>
+<p style="float: center"><a href="/">Upload More</a></p>
+
+{% if new_file %}
+
+<h1>File Uploaded Successfully </h1>
+<table>
+<tr>
+<th>Filename</th>
+<th>Size</th>
+<th>Uploaded</th>
+<th>Uploaded by</th>
+<th>Content Type</th>
+<th>Folder Name </th>
+</tr>
+<tr>
+<td>{{new_file.blobkey.filename}}</td>
+<td>{{new_file.blobkey.size}} bytes</td>
+<td>{{new_file.user}}</td>
+<td>{{new_file.upload_time}}</td>
+<td>{{new_file.blobkey.content_type}}</td>
+<td>{{file.folder}}</td>
+</tr>
+</table>
+
+{% endif %}
+
+<h2>Your Files </h2>
+{% for file in filelist %}
+<table>
+<tr>
+<th>Filename</th>
+<th>Size</th>
+<th>Uploaded</th>
+<th>Uploaded by</th>
+<th>Content Type</th>
+<th>Folder Name </th>
+</tr>
+<tr>
+<td>{{file.blobkey.filename}}</td>
+<td>{{file.blobkey.size}} bytes</td>
+<td>{{file.user}}</td>
+<td>{{file.upload_time}}</td>
+<td>{{file.blobkey.content_type}}</td>
+<td>{{file.folder}}</td>
+<td><a href="/delete/{{file.key.id}}"> Delete </a>
+</tr>
+</table>
+<p><a href="/file/{{file.key.id}}/download">Download this file</a></p>
+{% endfor %}
+
+</body>
+</html>

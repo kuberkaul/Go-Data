@@ -1,0 +1,19 @@
+application: godatacloud
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers: 
+        - url: /
+          script: uploadfile.app
+        - url: /uploaded
+          script: fileuploaded.app
+        - url: /list/([0-9]*)
+          script: list.app
+        - url: /createfolder/([0-9]*)
+          script: createfolder.app
+        - url: /file/([0-9]+)/download
+          script: filedownload.app
+        - url: /delete/(.*)
+          script: delete.app
